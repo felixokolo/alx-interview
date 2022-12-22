@@ -3,3 +3,4 @@
 /tests
 tests/
 *main*.py
+/__pycache__
