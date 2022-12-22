@@ -1,6 +1,7 @@
 #!/usr/bin/python3
 """ Pascal's triangle """
 
+
 def pascal_triangle(n):
     """
     Function that returns a list of integers
