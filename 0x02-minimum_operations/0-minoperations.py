@@ -14,6 +14,8 @@ def minOperations(n):
     Returns:
         Minimum number of steps
     """
+    if n < 0:
+        return 0
     i = 2
     while (n % i > 0):
         i += 1
@@ -22,6 +24,3 @@ def minOperations(n):
     else:
         ret = n
     return int(ret)
-
-
-    
