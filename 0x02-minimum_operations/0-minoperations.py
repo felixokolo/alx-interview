@@ -2,7 +2,7 @@
 """ Minimum operations """
 
 
-def open_boxes(n: int) -> int:
+def minOperations(n: int) -> int:
     """
     A method that calculates the fewest
     number of operations needed to result
@@ -14,10 +14,23 @@ def open_boxes(n: int) -> int:
     Returns:
         Minimum number of steps
     """
-    H_n: int = 1
+    if n % 1 > 0:
+        return 0
+    return findMin(n)[0]
 
-    while (H_n < n):
-        H_n *= 2
-        if (H_n == n):
-            return 
-    return 0
+
+def findMin(n):
+    """
+    Find minimum operations
+    """
+
+    i: int = 2
+    while (n % i > 0):
+        i += 1
+    if i < n:
+        ret = findMin(n/i)
+        if ret[1] * i == n:
+            ret = ret[0] + i, ret[1] * i, ret[1]
+    else:
+        ret = n, n, 1
+    return ret
