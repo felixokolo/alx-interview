@@ -2,7 +2,7 @@
 """ Minimum operations """
 
 
-def minOperations(n: int) -> int:
+def minOperations(n):
     """
     A method that calculates the fewest
     number of operations needed to result
