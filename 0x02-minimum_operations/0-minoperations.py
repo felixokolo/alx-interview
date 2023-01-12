@@ -16,7 +16,7 @@ def minOperations(n: int) -> int:
     """
     if n % 1 > 0:
         return 0
-    return findMin(n)[0]
+    return int(findMin(n)[0])
 
 
 def findMin(n):
