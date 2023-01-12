@@ -14,9 +14,9 @@ def minOperations(n):
     Returns:
         Minimum number of steps
     """
-    if type(n) is not int:
-        return 0
     if n < 0:
+        return 0
+    if n % 1 > 0:
         return 0
     i = 2
     while (n % i > 0):
