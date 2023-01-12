@@ -14,23 +14,14 @@ def minOperations(n):
     Returns:
         Minimum number of steps
     """
-    if n % 1 > 0:
-        return 0
-    return int(findMin(n)[0])
-
-
-def findMin(n):
-    """
-    Find minimum operations
-    """
-
     i: int = 2
     while (n % i > 0):
         i += 1
     if i < n:
-        ret = findMin(n/i)
-        if ret[1] * i == n:
-            ret = ret[0] + i, ret[1] * i, ret[1]
+        ret = minOperations(n/i) + i
     else:
-        ret = n, n, 1
-    return ret
+        ret = n
+    return int(ret)
+
+
+    
