@@ -14,7 +14,7 @@ def minOperations(n):
     Returns:
         Minimum number of steps
     """
-    i: int = 2
+    i = 2
     while (n % i > 0):
         i += 1
     if i < n:
