@@ -19,6 +19,8 @@ def minOperations(n):
     if n % 1 > 0:
         return 0
     i = 2
+    if n == 1:
+        return 0
     while (n % i > 0):
         i += 1
     if i < n:
