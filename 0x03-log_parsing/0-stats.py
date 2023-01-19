@@ -39,12 +39,12 @@ try:
             total_size += size
         loops += 1
         if loops == 10:
-            print('File size:', total_size)
+            print('File size: {}'.format(total_size))
             sorted_keys = list(status_codes.keys())
             sorted_keys.sort()
             for k in sorted_keys:
                 if status_codes[k] > 0:
-                    print(f'{k}: {status_codes[k]}')
+                    print('{}: {}'.format(k, status_codes[k]))
             loops = 0
 except(KeyboardInterrupt):
     print('File size:', total_size)
@@ -52,5 +52,5 @@ except(KeyboardInterrupt):
     sorted_keys.sort()
     for k in sorted_keys:
         if status_codes[k] > 0:
-            print(f'{k}: {status_codes[k]}')
+            print('{}: {}'.format(k, status_codes[k]))
     raise
