@@ -33,14 +33,12 @@ try:
         size = 0
         found = line.split(' ')
         try:
-            if found[-1].strip().isnumeric():
-                size = int(found[-1])
-                total_size += size
+            size = int(found[-1])
+            total_size += size
         except(Exception):
             pass
         try:
-            if found[-2].isnumeric():
-                code = found[-2]
+            code = found[-2]
             if code in status_codes:
                 status_codes[code] += 1
         except(Exception):
