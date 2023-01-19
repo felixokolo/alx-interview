@@ -7,7 +7,7 @@ import re
 
 stdin = sys.stdin
 rex = (r'^([0-9]{1,3}\.){3}\d{1,3}\s-\s\[\d{4}' +
-       r'-[0-1][0-2]-[0-3]\d\s[0-2][0-4]:([0-5]' +
+       r'-[0-1][0-2]-[0-3]\d\s[0-2][0-9]:([0-5]' +
        r'[0-9]:?){2}\.\d*\]\s"GET \/projects\/260 ' +
        r'HTTP\/1\.1"\s\d{3}\s\d+$')
 rex2 = r'\d{3}\s\d+$'
@@ -19,7 +19,8 @@ status_codes = {200: 0, 301: 0,
 total_size = 0
 loops = 0
 
-""" def handle(sign, frame):
+""" def handle(sign, 
+        print(line)frame):
     global pressed
     sys.stdout.flush()
     to_print = 'File size: {}\n'.format(total_size)
@@ -42,15 +43,17 @@ try:
             total_size += int(size)
         loops += 1
         if loops == 10:
-            print('File size:', total_size)
+            print('File size: {}'.format(total_size))
             sorted_keys = list(status_codes.keys())
             sorted_keys.sort()
             for k in sorted_keys:
-                print(f'{k}: {status_codes[k]}')
+                if status_codes[k] > 0:
+                    print(f'{k}: {status_codes[k]}')
             loops = 0
 except(KeyboardInterrupt):
     print('File size:', total_size)
     sorted_keys = list(status_codes.keys())
     sorted_keys.sort()
-    for k in sorted_keys:
+    if status_codes[k] > 0:
         print(f'{k}: {status_codes[k]}')
+    raise
