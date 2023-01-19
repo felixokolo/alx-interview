@@ -40,17 +40,17 @@ try:
         if found[6] != 'HTTP/1.1"':
             continue """
         if found is not None:
+            if found[-1].strip().isnumeric():
+                size = int(found[-1])
+                total_size += size
+            else:
+                continue
             if found[-2].isnumeric():
                 code = int(found[-2])
             else:
                 continue
-            if found[-1].strip().isnumeric():
-                size = int(found[-1])
-            else:
-                continue
             if code in status_codes:
                 status_codes[code] += 1
-            total_size += size
 except(KeyboardInterrupt):
     print('File size:', total_size)
     sorted_keys = list(status_codes.keys())
