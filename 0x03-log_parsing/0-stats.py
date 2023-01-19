@@ -4,6 +4,13 @@ Statistics calculation
 """
 import sys
 
+def printStatus(dic, size):
+    """ Prints information """
+    print("File size: {:d}".format(size))
+    for i in sorted(dic.keys()):
+        if dic[i] != 0:
+            print("{}: {:d}".format(i, dic[i]))
+
 stdin = sys.stdin
 status_codes = {200: 0, 301: 0,
                 400: 0, 401: 0,
@@ -16,28 +23,12 @@ loops = 0
 try:
     for line in stdin:
         if loops == 10:
-            print('File size: {:d}'.format(total_size))
-            sorted_keys = sorted(status_codes.keys())
-            for k in sorted_keys:
-                if status_codes[k] > 0:
-                    print('{}: {:d}'.format(str(k), status_codes[k]))
+            printStatus(status_codes, total_size)
             loops = 0
         loops += 1
         code = 0
         size = 0
         found = line.split(' ')
-        """ if len(fouprint('File size: {}'.format(total_size))nd[0]) < 4:
-            continue
-        if found[1] != '-':
-            continue
-        if found[2][0] != '[' or found[3][-1] != ']':
-            continue
-        if found[4] != '"GET':
-            continue
-        if found[5] != '/projects/260':
-            continue
-        if found[6] != 'HTTP/1.1"':
-            continue """
         if found is not None:
             if found[-1].strip().isnumeric():
                 size = int(found[-1])
@@ -47,9 +38,5 @@ try:
             if code in status_codes:
                 status_codes[code] += 1
 except(KeyboardInterrupt, Exception):
-    print('File size: {:d}'.format(total_size))
-    sorted_keys = sorted(status_codes.keys())
-    for k in sorted_keys:
-        if status_codes[k] > 0:
-            print('{}: {:d}'.format(str(k), status_codes[k]))
+    printStatus(status_codes, total_size)
     raise
