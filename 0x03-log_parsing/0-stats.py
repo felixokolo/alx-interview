@@ -46,6 +46,6 @@ try:
                     status_codes[code] += 1
             except(Exception):
                 pass
-except(KeyboardInterrupt, Exception):
+except(KeyboardInterrupt):
     printStatus(status_codes, total_size)
     raise
