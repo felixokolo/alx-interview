@@ -3,14 +3,8 @@
 Statistics calculation
 """
 import sys
-import re
 
 stdin = sys.stdin
-rex = (r'^([0-9]{1,3}\.){3}\d{1,3}\s-\s\[\d{4}' +
-       r'-[0-1][0-2]-[0-3]\d\s[0-2][0-4]:([0-5]' +
-       r'[0-9]:?){2}\.\d*\]\s"GET \/projects\/260 ' +
-       r'HTTP\/1\.1"\s\d{3}\s\d+$')
-rex2 = r'\d{3}\s\d+$'
 status_codes = {200: 0, 301: 0,
                 400: 0, 401: 0,
                 403: 0, 404: 0,
@@ -19,27 +13,38 @@ status_codes = {200: 0, 301: 0,
 total_size = 0
 loops = 0
 
-""" def handle(sign, frame):
-    global pressed
-    sys.stdout.flush()
-    to_print = 'File size: {}\n'.format(total_size)
-    sorted_keys = list(status_codes.keys())
-    sorted_keys.sort()
-
-    for k in sorted_keys:
-        to_print += f'{k}: {status_codes[k]}\n'
-        sys.stdout.write(to_print)
-
-signal.signal(signal.SIGINT, handle) """
-
 try:
     for line in stdin:
-        found = re.search(rex, line)
+        found = line.split(' ')
+        if len(found[0]) < 4:
+            print('1')
+            continue
+        if found[1] != '-':
+            print('2')
+            continue
+        if found[2][0] != '[' or found[3][-1] != ']':
+            continue
+        if found[4] != '"GET':
+            print(found[4])
+            continue
+        if found[5] != '/projects/260':
+            continue
+        if found[6] != 'HTTP/1.1"':
+            print(found[5])
+            continue
         if found is not None:
-            code_size = re.search(rex2, found.string)
-            code, size = found.string[code_size.start():].strip().split(' ')
-            status_codes[int(code)] += 1
-            total_size += int(size)
+            code = 0
+            size = 0
+            if found[-2].isnumeric():
+                code = int(found[-2])
+            else:
+                print('code not numeric', found[-2])
+            if found[-1].isnumeric():
+                size = int(found[-1])
+            else:
+                print('size not numeric', found[-1])
+            status_codes[code] += 1
+            total_size += size
         loops += 1
         if loops == 10:
             print('File size:', total_size)
