@@ -42,7 +42,7 @@ try:
             if int(code) in status_codes:
                 status_codes[int(code)] += 1
                 total_size += int(size)
-        loops += 1
+                loops += 1
         if loops == 10:
             print('File size: {}'.format(total_size))
             sorted_keys = list(status_codes.keys())
