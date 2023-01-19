@@ -17,32 +17,24 @@ try:
     for line in stdin:
         found = line.split(' ')
         if len(found[0]) < 4:
-            print('1')
             continue
         if found[1] != '-':
-            print('2')
             continue
         if found[2][0] != '[' or found[3][-1] != ']':
             continue
         if found[4] != '"GET':
-            print(found[4])
             continue
         if found[5] != '/projects/260':
             continue
         if found[6] != 'HTTP/1.1"':
-            print(found[5])
             continue
         if found is not None:
             code = 0
             size = 0
             if found[-2].isnumeric():
                 code = int(found[-2])
-            else:
-                print('code not numeric', found[-2])
-            if found[-1].isnumeric():
+            if found[-1].strip().isnumeric():
                 size = int(found[-1])
-            else:
-                print('size not numeric', found[-1])
             status_codes[code] += 1
             total_size += size
         loops += 1
@@ -59,3 +51,4 @@ except(KeyboardInterrupt):
     sorted_keys.sort()
     for k in sorted_keys:
         print(f'{k}: {status_codes[k]}')
+    raise
