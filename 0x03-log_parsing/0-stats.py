@@ -3,7 +3,7 @@
 Statistics calculation
 """
 import sys
-#import re
+import re
 
 
 rex = (r'^([0-9]{1,3}\.){3}\d{1,3}\s-\s\[\d{4}' +
