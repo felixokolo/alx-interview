@@ -1,54 +1,46 @@
 #!/usr/bin/python3
-"""
-Statistics calculation
-"""
+
+""" script that reads stdin line by line and computes metrics """
+
 import sys
 
-stdin = sys.stdin
-status_codes = {200: 0, 301: 0,
-                400: 0, 401: 0,
-                403: 0, 404: 0,
-                405: 0, 500: 0
-                }
-total_size = 0
-loops = 0
+
+def printStatus(dic, size):
+    """ Prints information """
+    print("File size: {:d}".format(size))
+    for i in sorted(dic.keys()):
+        if dic[i] != 0:
+            print("{}: {:d}".format(i, dic[i]))
+
+
+# sourcery skip: use-contextlib-suppress
+statusCodes = {"200": 0, "301": 0, "400": 0, "401": 0, "403": 0,
+               "404": 0, "405": 0, "500": 0}
+
+count = 0
+size = 0
 
 try:
-    for line in stdin:
-        found = line.split(' ')
-        if len(found[0]) < 4:
-            continue
-        if found[1] != '-':
-            continue
-        if found[2][0] != '[' or found[3][-1] != ']':
-            continue
-        if found[4] != '"GET':
-            continue
-        if found[5] != '/projects/260':
-            continue
-        if found[6] != 'HTTP/1.1"':
-            continue
-        if found is not None:
-            code = 0
-            size = 0
-            if found[-2].isnumeric():
-                code = int(found[-2])
-            if found[-1].strip().isnumeric():
-                size = int(found[-1])
-            status_codes[code] += 1
-            total_size += size
-        loops += 1
-        if loops == 10:
-            print('File size:', total_size)
-            sorted_keys = list(status_codes.keys())
-            sorted_keys.sort()
-            for k in sorted_keys:
-                print(f'{k}: {status_codes[k]}')
-            loops = 0
-except(KeyboardInterrupt):
-    print('File size:', total_size)
-    sorted_keys = list(status_codes.keys())
-    sorted_keys.sort()
-    for k in sorted_keys:
-        print(f'{k}: {status_codes[k]}')
+    for line in sys.stdin:
+        if count != 0 and count % 10 == 0:
+            printStatus(statusCodes, size)
+
+        stlist = line.split()
+        count += 1
+
+        try:
+            size += int(stlist[-1])
+        except Exception:
+            pass
+
+        try:
+            if stlist[-2] in statusCodes:
+                statusCodes[stlist[-2]] += 1
+        except Exception:
+            pass
+    printStatus(statusCodes, size)
+
+
+except KeyboardInterrupt:
+    printStatus(statusCodes, size)
     raise
