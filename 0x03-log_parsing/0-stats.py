@@ -4,6 +4,7 @@ Statistics calculation
 """
 import sys
 
+
 def printStatus(status_codes, total_size):
     """ Prints information """
     print('File size: {:d}'.format(total_size))
@@ -11,6 +12,7 @@ def printStatus(status_codes, total_size):
     for k in sorted_keys:
         if status_codes[k] > 0:
             print('{}: {:d}'.format(k, status_codes[k]))
+
 
 stdin = sys.stdin
 status_codes = {'200': 0, '301': 0,
@@ -31,13 +33,19 @@ try:
         size = 0
         found = line.split(' ')
         if found is not None:
-            if found[-1].strip().isnumeric():
-                size = int(found[-1])
-                total_size += size
-            if found[-2].isnumeric():
-                code = found[-2]
-            if code in status_codes:
-                status_codes[code] += 1
+            try:
+                if found[-1].strip().isnumeric():
+                    size = int(found[-1])
+                    total_size += size
+            except(Exception):
+                pass
+            try:
+                if found[-2].isnumeric():
+                    code = found[-2]
+                if code in status_codes:
+                    status_codes[code] += 1
+            except(Exception):
+                pass
 except(KeyboardInterrupt, Exception):
     printStatus(status_codes, total_size)
     raise
