@@ -43,6 +43,8 @@ try:
                 status_codes[code] += 1
         except(Exception):
             pass
+    printStatus(status_codes, total_size)
+
 except(KeyboardInterrupt):
     printStatus(status_codes, total_size)
     raise
