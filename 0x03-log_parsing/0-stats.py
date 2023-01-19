@@ -32,20 +32,19 @@ try:
         code = 0
         size = 0
         found = line.split(' ')
-        if found is not None:
-            try:
-                if found[-1].strip().isnumeric():
-                    size = int(found[-1])
-                    total_size += size
-            except(Exception):
-                pass
-            try:
-                if found[-2].isnumeric():
-                    code = found[-2]
-                if code in status_codes:
-                    status_codes[code] += 1
-            except(Exception):
-                pass
+        try:
+            if found[-1].strip().isnumeric():
+                size = int(found[-1])
+                total_size += size
+        except(Exception):
+            pass
+        try:
+            if found[-2].isnumeric():
+                code = found[-2]
+            if code in status_codes:
+                status_codes[code] += 1
+        except(Exception):
+            pass
 except(KeyboardInterrupt):
     printStatus(status_codes, total_size)
     raise
