@@ -39,8 +39,9 @@ try:
         if found is not None:
             code_size = re.search(rex2, found.string)
             code, size = found.string[code_size.start():].strip().split(' ')
-            status_codes[int(code)] += 1
-            total_size += int(size)
+            if int(code) in status_codes:
+                status_codes[int(code)] += 1
+                total_size += int(size)
         loops += 1
         if loops == 10:
             print('File size: {}'.format(total_size))
@@ -48,14 +49,14 @@ try:
             sorted_keys.sort()
             for k in sorted_keys:
                 if status_codes[k] > 0:
-                    print('{}: {}'.format(k, status_codes[k]))
+                    print('{}: {:d}'.format(k, status_codes[k]))
             loops = 0
 except(KeyboardInterrupt):
-    to_print = 'File size: {}\n'.format(total_size)
+    to_print = 'File size: {:d}\n'.format(total_size)
     sorted_keys = list(status_codes.keys())
     sorted_keys.sort()
     for k in sorted_keys:
         if status_codes[k] > 0:
-            to_print += '{}: {}\n'.format(k, status_codes[k])
+            to_print += '{}: {:d}\n'.format(k, status_codes[k])
     print(to_print, end='')
     raise
