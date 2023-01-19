@@ -27,7 +27,7 @@ try:
         code = 0
         size = 0
         found = line.split(' ')
-        if len(found[0]) < 4:
+        """ if len(found[0]) < 4:
             continue
         if found[1] != '-':
             continue
@@ -38,7 +38,7 @@ try:
         if found[5] != '/projects/260':
             continue
         if found[6] != 'HTTP/1.1"':
-            continue
+            continue """
         if found is not None:
             if found[-2].isnumeric():
                 code = int(found[-2])
