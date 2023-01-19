@@ -27,7 +27,7 @@ try:
         code = 0
         size = 0
         found = line.split(' ')
-        """ if len(found[0]) < 4:
+        """ if len(fouprint('File size: {}'.format(total_size))nd[0]) < 4:
             continue
         if found[1] != '-':
             continue
@@ -52,7 +52,7 @@ try:
             if code in status_codes:
                 status_codes[code] += 1
 except(KeyboardInterrupt):
-    print('File size:', total_size)
+    print('File size: {}'.format(total_size))
     sorted_keys = list(status_codes.keys())
     sorted_keys.sort()
     for k in sorted_keys:
