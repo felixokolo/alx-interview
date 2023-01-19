@@ -5,7 +5,7 @@ Statistics calculation
 import sys
 import re
 
-
+stdin = sys.stdin
 rex = (r'^([0-9]{1,3}\.){3}\d{1,3}\s-\s\[\d{4}' +
        r'-[0-1][0-2]-[0-3]\d\s[0-2][0-4]:([0-5]' +
        r'[0-9]:?){2}\.\d*\]\s"GET \/projects\/260 ' +
@@ -19,7 +19,7 @@ status_codes = {200: 0, 301: 0,
 total_size = 0
 loops = 0
 
-for line in sys.stdin:
+for line in stdin:
     found = re.search(rex, line)
     if found is not None:
         code_size = re.search(rex2, found.string)
