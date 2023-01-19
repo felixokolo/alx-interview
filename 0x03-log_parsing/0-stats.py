@@ -3,7 +3,8 @@
 Statistics calculation
 """
 import sys
-import re
+#import re
+
 
 rex = (r'^([0-9]{1,3}\.){3}\d{1,3}\s-\s\[\d{4}' +
        r'-[0-1][0-2]-[0-3]\d\s[0-2][0-4]:([0-5]' +
@@ -28,8 +29,10 @@ for line in sys.stdin:
     loops += 1
     if loops == 10:
         print('File size:', total_size)
-        for k, v in status_codes.items():
-            print(f'{k}: {v}')
+        sorted_keys = list(status_codes.keys())
+        sorted_keys.sort()
+        for k in sorted_keys:
+            print(f'{k}: {status_codes[k]}')
         loops = 0
     else:
         pass
