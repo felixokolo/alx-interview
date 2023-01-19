@@ -48,7 +48,7 @@ try:
             sorted_keys.sort()
             for k in sorted_keys:
                 if status_codes[k] > 0:
-                    print(f'{k}: {status_codes[k]}')
+                    print('{}: {}\n'.format(k, status_codes[k]))
             loops = 0
 except(KeyboardInterrupt):
     to_print = 'File size: {}\n'.format(total_size)
@@ -56,6 +56,6 @@ except(KeyboardInterrupt):
     sorted_keys.sort()
     for k in sorted_keys:
         if status_codes[k] > 0:
-            to_print += f'{k}: {status_codes[k]}\n'
+            to_print += '{}: {}\n'.format(k, status_codes[k])
     print(to_print, end='')
     raise
