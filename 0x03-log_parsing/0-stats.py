@@ -21,7 +21,7 @@ try:
             sorted_keys.sort()
             for k in sorted_keys:
                 if status_codes[k] > 0:
-                    print('{}: {:d}'.format(k, status_codes[k]))
+                    print('{}: {:d}'.format(str(k), status_codes[k]))
             loops = 0
         loops += 1
         code = 0
@@ -51,11 +51,11 @@ try:
                 continue
             if code in status_codes:
                 status_codes[code] += 1
-except(KeyboardInterrupt):
+except(KeyboardInterrupt, Exception):
     print('File size: {:d}'.format(total_size))
     sorted_keys = list(status_codes.keys())
     sorted_keys.sort()
     for k in sorted_keys:
         if status_codes[k] > 0:
-            print('{}: {:d}'.format(k, status_codes[k]))
+            print('{}: {:d}'.format(str(k), status_codes[k]))
     raise
