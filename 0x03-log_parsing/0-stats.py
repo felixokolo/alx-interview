@@ -25,7 +25,7 @@ loops = 0
     to_print = 'File size: {}\n'.format(total_size)
     sorted_keys = list(status_codes.keys())
     sorted_keys.sort()
-    
+
     for k in sorted_keys:
         to_print += f'{k}: {status_codes[k]}\n'
         sys.stdout.write(to_print)
