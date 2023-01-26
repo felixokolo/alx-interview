@@ -28,7 +28,10 @@ def check_header(data):
             lent = 3
         if ((data[pos] >> 5) ^ 0xc0) == 0:
             lent = 2
-        yield data[pos:pos + lent]
+        if pos + lent < len(data):
+            yield data[pos:pos + lent]
+        else:
+            yield data[pos:]
         pos += lent
 
 
