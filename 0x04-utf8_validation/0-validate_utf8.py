@@ -29,9 +29,9 @@ def check_header(data):
         if ((data[pos] >> 5) ^ 0x6) == 0:
             lent = 2
         if pos + lent < len(data):
-            yield data[pos:pos + lent]
+            yield data[pos:pos + lent], lent
         else:
-            yield data[pos:]
+            yield data[pos:], lent
         pos += lent
 
 
@@ -50,13 +50,15 @@ def validUTF8(data):
         if bits_length(i) > 8:
             return False
     for i in check_header(data):
-        total_len += len(i)
-        if len(i) > 1:
-            for j in range(1, len(i)):
-                if ((i[j] >> 6) ^ 0x2) != 0:
+        total_len += len(i[0])
+        if len(i[0]) != i[1]:
+            return False
+        if len(i[0]) > 1:
+            for j in range(1, len(i[0])):
+                if ((i[0][j] >> 6) ^ 0x2) != 0:
                     return False
         else:
-            if i[0] > 127:
+            if i[0][0] > 127:
                 return False
     if total_len != len(data):
         return False
