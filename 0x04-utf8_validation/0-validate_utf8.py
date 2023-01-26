@@ -43,7 +43,7 @@ def validUTF8(data):
 
     total_len = 0
     if type(data) is not list or data is None:
-        return False
+        return True
     if len(data) == 0:
         return True
     for i in data:
