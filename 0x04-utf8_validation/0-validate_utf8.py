@@ -4,26 +4,32 @@ UTF-8 Validation code
 """
 
 
-def get_unicode(in_data):
+def bits_length(in_data):
     """
-    Gets the Unicode equivalent of input data
+    Gets length of bits of data
     """
-    chunks = []
     bit = 0
     while (in_data > 0):
-        bit = 0xff & in_data
-        in_data = in_data >> 8
-        chunks.append(bit)
-    return chunks[::-1]
+        in_data = in_data >> 1
+        bit += 1
+    return bit
 
 
-def check_header(data, header, lent):
+def check_header(data):
     """
     assert header
     """
-    if data & (0xff << (8 - lent)) == header:
-        return True
-    return False
+    pos = 0
+    while pos < len(data):
+        lent = 1
+        if ((data[pos] >> 3) ^ 0x1e) == 0:
+            lent = 4
+        if ((data[pos] >> 4) ^ 0xe) == 0:
+            lent = 3
+        if ((data[pos] >> 5) ^ 0xc0) == 0:
+            lent = 2
+        yield data[pos:pos + lent]
+        pos += lent
 
 
 def validUTF8(data):
@@ -32,31 +38,19 @@ def validUTF8(data):
     codes
     """
 
+    total_len = 0
     if type(data) is not list or data is None:
         return False
     if len(data) == 0:
         return False
     for i in data:
-        chunks = get_unicode(i)
-        if len(chunks) > 4:
+        if bits_length(i) > 8:
             return False
-        if len(chunks) == 1:
-            if not check_header(chunks[0], 0b0, 1):
+    for i in check_header(data):
+        total_len += len(i)
+        for j in range(1, len(i)):
+            if ((i[j] >> 6) ^ 0x2) != 0:
                 return False
-        if len(chunks) == 2:
-            if not (check_header(chunks[0], 0b110, 3) and
-                    check_header(chunks[0], 0b10, 2)):
-                return False
-        if len(chunks) == 3:
-            if not (check_header(chunks[0], 0b1110, 4) and
-                    check_header(chunks[1], 0b10, 2) and
-                    check_header(chunks[2], 0b10, 2)):
-                return False
-        if len(chunks) == 4:
-            if not (check_header(chunks[0], 0b11110, 5) and
-                    check_header(chunks[1], 0b10, 2) and
-                    check_header(chunks[2], 0b10, 2) and
-                    check_header(chunks[3], 0b10, 2)):
-                return False
-
+    if total_len != len(data):
+        return False
     return True
