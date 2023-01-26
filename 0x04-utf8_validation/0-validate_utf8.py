@@ -51,8 +51,12 @@ def validUTF8(data):
             return False
     for i in check_header(data):
         total_len += len(i)
-        for j in range(1, len(i)):
-            if ((i[j] >> 6) ^ 0x2) != 0:
+        if len(i) > 1:
+            for j in range(1, len(i)):
+                if ((i[j] >> 6) ^ 0x2) != 0:
+                    return False
+        else:
+            if i[0] > 127:
                 return False
     if total_len != len(data):
         return False
