@@ -45,7 +45,7 @@ def validUTF8(data):
     if type(data) is not list or data is None:
         return False
     if len(data) == 0:
-        return False
+        return True
     for i in data:
         if bits_length(i) > 8:
             return False
