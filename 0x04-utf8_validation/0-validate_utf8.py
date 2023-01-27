@@ -4,17 +4,6 @@ UTF-8 Validation code
 """
 
 
-def bits_length(in_data):
-    """
-    Gets length of bits of data
-    """
-    bit = 0
-    while (in_data > 0):
-        in_data = in_data >> 1
-        bit += 1
-    return bit
-
-
 def check_header(data):
     """
     assert header
