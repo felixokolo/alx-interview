@@ -19,7 +19,7 @@ def get_enemies(pos):
     enemies = []
     for i in range(N):
         enemies.append([i, pos[1]])
-        enemies.append([pos[0]], i)
+        enemies.append([pos[0], i])
         if pos[0] > pos[1]:
             start = [max(pos)-min(pos), 0]
         else:
@@ -56,7 +56,7 @@ def find_solution(Parent, pos):
         return Parent
     for i in range(N):
         if accept(Parent, [pos+1, i]):
-            Parent.append()
+            Parent.append([pos+1, i])
             ret = find_solution(Parent, pos+1)
             if ret is not None:
                 break
