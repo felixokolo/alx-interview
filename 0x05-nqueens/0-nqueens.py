@@ -70,4 +70,6 @@ def find_solution(Parent, pos):
 
 
 for i in range(N):
-    print(find_solution([[0, i]], 0))
+    ret = find_solution([[0, i]], 0)
+    if ret is not None:
+        print(ret)
