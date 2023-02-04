@@ -14,6 +14,7 @@ N = int(N)
 if N < 4:
     print('N must be at least 4')
     exit(1)
+solutions = []
 
 
 def get_enemies(pos):
@@ -54,6 +55,9 @@ def accept(Parent, child):
 def find_solution(Parent, pos):
     """ find solution of challenge"""
     if len(Parent) == N:
+        if Parent not in solutions:
+            solutions.append(Parent.copy())
+            print(Parent)
         return Parent
     for i in range(N):
         if accept(Parent, [pos+1, i]):
@@ -63,7 +67,7 @@ def find_solution(Parent, pos):
                 del Parent[-1]
                 continue
             else:
-                return ret
+                del Parent[-1]
     else:
         return None
     return ret
@@ -71,5 +75,3 @@ def find_solution(Parent, pos):
 
 for i in range(N):
     ret = find_solution([[0, i]], 0)
-    if ret is not None:
-        print(ret)
