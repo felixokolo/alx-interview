@@ -1,22 +1,20 @@
 #!/usr/bin/node
 const request = require('request');
 let part = 0;
-if (process.argv.length == 3) {
+if (process.argv.length === 3) {
   part = process.argv[2];
 }
-url = `https://swapi-api.alx-tools.com/api/films/${part}/?format=json`;
+const url = `https://swapi-api.alx-tools.com/api/films/${part}/?format=json`;
 
-
-
-function getPersonPromise(url) {
-  let promise = new Promise((resolve, reject) => {
+function getPersonPromise (url) {
+  const promise = new Promise((resolve, reject) => {
     request(url, (err, resp, body) => {
-      if (resp.statusCode == 200) {
-        personName = JSON.parse(body).name;
+      console.error(err);
+      if (resp.statusCode === 200) {
+        const personName = JSON.parse(body).name;
         resolve(personName);
-      }
-      else {
-        reject("Error")
+      } else {
+        reject(new Error('Error'));
       }
     });
   });
@@ -24,15 +22,14 @@ function getPersonPromise(url) {
 }
 
 request(url, (err, resp, body) => {
-  if (resp.statusCode == 200){
-    characters = JSON.parse(body).characters;
-    let promises = characters.map((uri) => getPersonPromise(uri));
+  console.error(err);
+  if (resp.statusCode === 200) {
+    const characters = JSON.parse(body).characters;
+    const promises = characters.map((uri) => getPersonPromise(uri));
     Promise.all(promises).then(result => {
       result.forEach(element => {
         console.log(element);
       });
-    })
+    });
   }
 });
-
-
