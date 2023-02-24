@@ -8,7 +8,7 @@ def makeChange(coins, total):
     if total is None or total == 0:
         return 0
     if total < 0:
-        return -1
+        return 0
     if len(coins) == 0:
         return -1
     sorted_coins = coins.copy()
