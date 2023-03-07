@@ -6,7 +6,7 @@ def isWinner(x, nums):
     """Gets the widder of the game"""
 
     players = {'Maria': 0, 'Ben': 0}
-    if ((x is None or x == 0)):
+    if ((x is None or x == 0 or x < 1)):
         return None
     for i in range(x):
         arr = list(range(1, nums[i]+1))
