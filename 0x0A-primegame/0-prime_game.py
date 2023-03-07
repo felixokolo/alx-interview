@@ -6,10 +6,13 @@ def isWinner(x, nums):
     """Gets the widder of the game"""
 
     players = {'Maria': 0, 'Ben': 0}
-    if ((x is None or x == 0 or
-         nums is None or len(nums) == 0)):
+    if ((x is None or x == 0)):
         return None
+    if nums is None or len(nums) == 0:
+        return 'Ben'
     for i in range(x):
+        if (nums[i] == 0):
+            continue
         arr = list(range(1, nums[i]+1))
         primes = [j for j in arr if isPrime(j)]
         if len(primes) % 2 == 1:
@@ -19,8 +22,10 @@ def isWinner(x, nums):
         players[winner] = players[winner] + 1
     if players['Maria'] > players['Ben']:
         return 'Maria'
-    else:
+    elif players['Maria'] > players['Ben']:
         return 'Ben'
+    else:
+        return None
 
 
 def isPrime(x):
