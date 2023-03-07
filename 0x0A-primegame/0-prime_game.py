@@ -11,8 +11,6 @@ def isWinner(x, nums):
     if nums is None or len(nums) == 0:
         return 'Ben'
     for i in range(x):
-        if (nums[i] == 0):
-            continue
         arr = list(range(1, nums[i]+1))
         primes = [j for j in arr if isPrime(j)]
         if len(primes) % 2 == 1:
