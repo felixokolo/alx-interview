@@ -33,6 +33,3 @@ def isPrime(x):
             return False
     else:
         return True
-
-
-print("Winner: {}".format(isWinner(5, [2, 5, 1, 4, 3])))
