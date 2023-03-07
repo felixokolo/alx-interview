@@ -8,8 +8,6 @@ def isWinner(x, nums):
     players = {'Maria': 0, 'Ben': 0}
     if ((x is None or x == 0)):
         return None
-    if nums is None or len(nums) == 0:
-        return 'Ben'
     for i in range(x):
         arr = list(range(1, nums[i]+1))
         primes = [j for j in arr if isPrime(j)]
